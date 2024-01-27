@@ -31,6 +31,7 @@ const update = catchError(async (req, res) => {
     const { id } = req.params;
     const {first_name, last_name, password} = req.body
     const user = await User.update({first_name, last_name, password}, {where: {id}, returning:true});
+    if (!user) return res.sendStatus(404)
     return res.json(user[1][0])
 })
 
